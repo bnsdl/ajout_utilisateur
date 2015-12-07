@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Formulaire avec objets</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" >
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form id="formulaire">
+        <!-- <div class="form-group"> -->
+          <legend>Ajouter un utilisateur</legend>
+        <!-- </div> -->
+        <div class="form-group">
+          <label for="champNom">Nom: </label>
+          <input class="form-control" id="champNom"></input>
+        </div>
+        <div class="form-group">
+          <label for="champPrenom">Prenom: </label>
+          <input class="form-control" id="champPrenom"></input>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="button" onclick="recup()">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <ul id="maListe"></ul>
+    </div>
+  </div>
+</div>
+
+  <style>
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:after, *:before {
+    box-sizing: inherit;
+  }
+
+  form {
+    margin: 10px auto;
+    width: 300px;
+    border: 1px solid #CCC;
+  }
+
+  .btn-primary{
+    margin: 5px 15px;
+  }
+  .form-group{
+    padding: 0 1em ;
+
+  }
+
+  legend {
+    background: lightgrey;
+    padding: 10px;
+  }
+
+  ul {
+    margin-top: 10px;
+  }
+
+
+  </style>
+  <script>
+    var liste = document.getElementById('maListe');
+    var li;
+    var nouvellediv;
+    var compteur = 0;
+    var tabContact = [];
+
+    function suppr(a, b){
+      var idLi = document.getElementById("li"+a);
+      // console.log("li"+a);
+      idLi.parentNode.removeChild(idLi);
+      b.parentNode.removeChild(b);
+      // console.log(liste);
+      tabContact.splice(a,1);
+      // console.log("a : " + a );
+      console.log(tabContact);
+    }
+
+    function recup(){
+      var prenom = document.getElementById('champPrenom');
+      var nom = document.getElementById("champNom");
+      var monObjet = {};
+      li = document.createElement('li');
+      liste.appendChild(li);
+      li.id = "li"+compteur;
+      //  console.log("compteur : "+compteur + "id li : "+ li.id);
+      nouvellediv = document.createElement('div');
+      nouvellediv.innerHTML="<button class='btn btn-warning' type='button' onclick='suppr("+compteur+", this)'>X</button>";
+      nouvellediv.style.display ="inline-block";
+      nouvellediv.style.marginLeft ="10px";
+      compteur ++;
+      monObjet.nom = nom.value;
+      monObjet.prenom = prenom.value;
+      tabContact.push(monObjet);
+      console.log(tabContact);
+      // li.textContent = monObjet.nom + ' ' + monObjet.prenom;
+      li.appendChild(document.createTextNode(monObjet.nom + ' ' + monObjet.prenom)); 
+      li.appendChild(nouvellediv);
+      nom.value ="";
+      prenom.value="";
+    }
+
+  </script>
+</body>
+</html>
